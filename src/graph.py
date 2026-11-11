@@ -41,3 +41,12 @@ def allowed_packages(
     if not exclude_substring:
         return packages
     return tuple(name for name in packages if exclude_substring not in name)
+
+
+def reverse_edges(repository: Graph) -> Graph:
+    """Развернуть рёбра, сохранив изолированные и виртуальные вершины."""
+    incoming = {name: [] for name in repository}
+    for name, dependencies in repository.items():
+        for child in dependencies:
+            incoming.setdefault(child, []).append(name)
+    return {name: tuple(sorted(parents)) for name, parents in incoming.items()}
