@@ -1,0 +1,9 @@
+{
+  "package": "jq",
+  "repository": "https://archive.ubuntu.com/ubuntu/dists/noble/main/binary-amd64/Packages.gz",
+  "test_mode": false,
+  "output": "../output/jq.svg",
+  "ascii_tree": true,
+  "max_depth": 2,
+  "exclude_substring": ""
+}

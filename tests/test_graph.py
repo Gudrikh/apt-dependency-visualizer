@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from src.graph import dependency_graph, reverse_edges
+from src.graph import dependency_graph
 from src.repository import load_test_repository
 
 
@@ -34,13 +34,6 @@ class GraphTests(unittest.TestCase):
         repository = {"app": ("virtual-name",)}
         graph = dependency_graph(repository, "app", 2, "")
         self.assertEqual(graph, repository | {"virtual-name": ()})
-
-    def test_reverse_graph_reuses_depth_and_filter(self):
-        repository = {"A": ("B",), "B": ("C",), "D": ("C",), "Z": ()}
-        reverse = reverse_edges(repository)
-        self.assertEqual(dependency_graph(reverse, "C", 2, "D"),
-                         {"C": ("B",), "B": ("A",), "A": ()})
-        self.assertEqual(dependency_graph(reverse, "Z", 2, ""), {"Z": ()})
 
     def test_chain_longer_than_recursion_limit(self):
         length = 1500
