@@ -69,7 +69,7 @@ python3 -m src.main examples/ubuntu-hello.json
 | [`stage-2`][stage-2] | `run.bat examples/ubuntu-hello.json` показывает прямую зависимость `libc6` из индекса Ubuntu. |
 | [`stage-3`][stage-3] | Три тестовых сценария ниже показывают циклы, глубину и фильтр. |
 | [`stage-4`][stage-4] | Те же сценарии с `--reverse` показывают обратные зависимости. |
-| [`stage-5`][stage-5] | Генерация PlantUML, SVG и ASCII-дерева для трёх пакетов Ubuntu. |
+| [`stage-5`][stage-5] | Визуализация трёх пакетов в PlantUML, SVG и ASCII. [Изменения в коммите][stage-5-commit]. |
 
 ### Тестовый граф и обратные зависимости
 
@@ -103,7 +103,7 @@ DFS использует явный стек и запоминает наиме�
 ветви, а `[shown]` — повтор узла, уже показанного на той же или меньшей
 глубине. Диаграмма сохраняет рёбра циклов.
 
-## Визуализация трёх пакетов
+## Этап 5. Визуализация
 
 ```powershell
 .\run.bat examples/ubuntu-hello.json
@@ -182,4 +182,5 @@ APT используется только в контрольном сравне
 [stage-2]: https://github.com/Gudrikh/apt-dependency-visualizer/tree/stage-2
 [stage-3]: https://github.com/Gudrikh/apt-dependency-visualizer/tree/stage-3
 [stage-4]: https://github.com/Gudrikh/apt-dependency-visualizer/tree/stage-4
-[stage-5]: https://github.com/Gudrikh/apt-dependency-visualizer/tree/stage-5
+[stage-5]: https://github.com/Gudrikh/apt-dependency-visualizer#этап-5-визуализация
+[stage-5-commit]: https://github.com/Gudrikh/apt-dependency-visualizer/commit/655bee64780daede83dda9d750d544101445b11f
