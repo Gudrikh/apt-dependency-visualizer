@@ -1,0 +1,9 @@
+{
+  "package": "Z",
+  "repository": "repository.json",
+  "test_mode": true,
+  "output": "../output/local-isolated.svg",
+  "ascii_tree": true,
+  "max_depth": 0,
+  "exclude_substring": ""
+}

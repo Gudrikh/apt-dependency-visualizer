@@ -1,0 +1,9 @@
+{
+  "package": "A",
+  "repository": "repository.json",
+  "test_mode": true,
+  "output": "../output/local-limited.svg",
+  "ascii_tree": true,
+  "max_depth": 2,
+  "exclude_substring": "D"
+}

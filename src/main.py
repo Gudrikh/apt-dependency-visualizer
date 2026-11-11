@@ -1,11 +1,12 @@
-"""CLI второго этапа. Показывает прямые зависимости пакета Ubuntu."""
+"""CLI третьего этапа. Показывает рёбра графа зависимостей."""
 
 import argparse
 import sys
 from pathlib import Path
 
-from src.apt import load_apt_repository
 from src.config import load_config
+from src.graph import dependency_graph
+from src.repository import load_repository
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -15,13 +16,13 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         config = load_config(args.config)
-        if config.test_mode:
-            raise ValueError("test_mode: тестовый граф появится на этапе 3")
-        packages = load_apt_repository(config.repository)
-        if config.package not in packages:
-            raise ValueError(f"Пакет {config.package} отсутствует в индексе")
-        print(f"Прямые зависимости пакета {config.package}:")
-        print("\n".join(packages[config.package]) or "(нет)")
+        graph = dependency_graph(
+            load_repository(config), config.package, config.max_depth,
+            config.exclude_substring,
+        )
+        for name in sorted(graph):
+            children = ", ".join(graph[name]) or "-"
+            print(f"{name} -> {children}")
     except (OSError, ValueError) as error:
         print(f"Ошибка: {error}", file=sys.stderr)
         return 1
