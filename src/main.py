@@ -1,11 +1,11 @@
-"""CLI первого этапа. Читает и печатает конфигурацию."""
+"""CLI второго этапа. Показывает прямые зависимости пакета Ubuntu."""
 
 import argparse
-import json
 import sys
 from pathlib import Path
 
-from src.config import FIELDS, load_config
+from src.apt import load_apt_repository
+from src.config import load_config
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -15,11 +15,13 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         config = load_config(args.config)
-        for name in FIELDS:
-            value = getattr(config, name)
-            if isinstance(value, Path):
-                value = str(value)
-            print(f"{name} = {json.dumps(value, ensure_ascii=False)}")
+        if config.test_mode:
+            raise ValueError("test_mode: тестовый граф появится на этапе 3")
+        packages = load_apt_repository(config.repository)
+        if config.package not in packages:
+            raise ValueError(f"Пакет {config.package} отсутствует в индексе")
+        print(f"Прямые зависимости пакета {config.package}:")
+        print("\n".join(packages[config.package]) or "(нет)")
     except (OSError, ValueError) as error:
         print(f"Ошибка: {error}", file=sys.stderr)
         return 1

@@ -16,3 +16,16 @@ python -m unittest discover -v
 Тест `test_invalid_parameter_values` проверяет ошибки для каждого из семи
 полей. Дополнительные проверки охватывают URL, отсутствующие, неизвестные и
 повторяющиеся ключи.
+
+## Этап 2. Прямые зависимости
+
+В текущем CLI используется индекс `Packages.gz` из Ubuntu 24.04 LTS.
+Программа читает `Depends` и `Pre-Depends`, включая альтернативы. Тесты
+проверяют текстовый индекс и сжатие gzip и XZ через локальный HTTP-сервер.
+
+```powershell
+.\run.bat examples/ubuntu-hello.json
+python -m unittest discover -v
+```
+
+Для демонстрации конфигурации переключитесь на тег `stage-1`.
